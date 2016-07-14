@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+</head>
+<body>
+<div class="calculator">
+<h3>Calculator Operations</h3>
+<table width="50%" border="0" cellspacing="5" cellpadding="5">
+  <tr>
+    <td>Option 1</td>
+    <td><input name="option1" id="option1" type="text" /></td>
+  </tr>
+  <tr>
+    <td>Option 2</td>
+    <td><input name="option2" id="option2" type="text" /></td>
+  </tr>
+  <tr>
+    <td>Result :</td>
+    <td><b id="resultval"></b></td>
+  </tr>
+  <tr>
+    <td colspan="2" ><input name="Add" type="button" id="addbutton" value="Add"/>
+    <input name="Substract" type="button" id="subbutton" value="Substract" />
+    <input name="Multiply" type="button" id="mulbutton" value="Multiply" />
+    <input name="Division" type="button" id="divbutton" value="Division" />
+    </td>
+  </tr>
+</table>
+</div>
+<div class="scalculator" style="margin-top:15px;">
+<h3>Scientific Calculator Operations</h3>
+<table width="50%" border="0" cellspacing="5" cellpadding="5">
+  <tr>
+    <td>Option 1</td>
+    <td><input name="soption1" id="soption1" type="text" /></td>
+  </tr>
+ 
+  <tr>
+    <td>Result :</td>
+    <td><b id="sresultval"></b></td>
+  </tr>
+  <tr>
+    <td colspan="2" ><input name="Sin" type="button" id="sinbutton" value="Sin"/>
+    <input name="Cos" type="button" id="cosbutton" value="Cos" />
+    <input name="Tan" type="button" id="tanbutton" value="Tan" />
+    <input name="Log" type="button" id="logbutton" value="Log" />
+    </td>
+  </tr>
+</table>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	var Calculator = function (option1,option2) {
+	  this.option1 = option1;
+	  this.option2 = option2;
+	};
+	
+	var Scalculator = function (soption1) {
+	  this.soption1 = soption1;
+	};
+	
+	Calculator.prototype.addOperation = function() {
+	  var result = parseInt(this.option1)+ parseInt(this.option2);
+	  return result;
+	};
+	
+	Calculator.prototype.subOperation = function() {
+	  var result = parseInt(this.option1) - parseInt(this.option2);
+	  return result;
+	};
+	
+	Calculator.prototype.mulOperation = function() {
+	  var result = parseInt(this.option1) * parseInt(this.option2);
+	  return result;
+	};
+	
+	Calculator.prototype.divOperation = function() {
+		if(this.option2==0){ return "NaN"; }else{
+			var result = parseInt(this.option1) / parseInt(this.option2);
+		    return result;
+		}
+	};
+	
+	Scalculator.prototype.sinOperation = function() {
+		var soption1 = this.soption1;
+		var result = Math.sin(soption1);
+		return result;
+	};
+	
+	Scalculator.prototype.cosOperation = function() {
+		var result = Math.cos(this.soption1);
+		return result;
+	};
+	
+	Scalculator.prototype.tanOperation = function() {
+		var result = Math.tan(this.soption1);
+		return result;
+	};
+	
+	Scalculator.prototype.logOperation = function() {
+		var result = Math.log(this.soption1);
+		return result;
+	};
+	
+	$(document).on('click','#addbutton',function(){
+		var option1 = $("#option1").val();
+		var option2 = $("#option2").val();	
+		if(option1===""){ $("#option1").focus();return false; }
+		if(option2===""){ $("#option2").focus();return false; }
+		var cal = new Calculator(option1,option2);
+		var res = cal.addOperation();
+		$("#resultval").html(res);
+	});
+	
+	$(document).on('click','#subbutton',function(){
+		var option1 = $("#option1").val();
+		var option2 = $("#option2").val();	
+		if(option1===""){ $("#option1").focus();return false; }
+		if(option2===""){ $("#option2").focus();return false; }
+		var cal = new Calculator(option1,option2);
+		var res = cal.subOperation();
+		$("#resultval").html(res);
+	});
+	
+	$(document).on('click','#mulbutton',function(){
+		var option1 = $("#option1").val();
+		var option2 = $("#option2").val();	
+		if(option1===""){ $("#option1").focus();return false; }
+		if(option2===""){ $("#option2").focus();return false; }
+		var cal = new Calculator(option1,option2);
+		var res = cal.mulOperation();
+		$("#resultval").html(res);
+	});
+	
+	$(document).on('click','#divbutton',function(){
+		var option1 = $("#option1").val();
+		var option2 = $("#option2").val();	
+		if(option1===""){ $("#option1").focus();return false; }
+		if(option2===""){ $("#option2").focus();return false; }
+		var cal = new Calculator(option1,option2);
+		var res = cal.divOperation();
+		$("#resultval").html(res);
+	});
+	
+	$(document).on('click','#sinbutton',function(){
+		var soption1 = $("#soption1").val();
+		if(soption1===""){ $("#soption1").focus();return false; }
+		var scal = new Scalculator(soption1);
+		var res = scal.sinOperation();
+		$("#sresultval").html(res);
+	});
+	
+	$(document).on('click','#cosbutton',function(){
+		var soption1 = $("#soption1").val();
+		if(soption1===""){ $("#soption1").focus();return false; }
+		var scal = new Scalculator(soption1);
+		var res = scal.cosOperation();
+		$("#sresultval").html(res);
+	});
+	$(document).on('click','#tanbutton',function(){
+		var soption1 = $("#soption1").val();
+		if(soption1===""){ $("#soption1").focus();return false; }
+		var scal = new Scalculator(soption1);
+		var res = scal.tanOperation();
+		$("#sresultval").html(res);
+	});
+	$(document).on('click','#logbutton',function(){
+		var soption1 = $("#soption1").val();
+		if(soption1===""){ $("#soption1").focus();return false; }
+		var scal = new Scalculator(soption1);
+		var res = scal.logOperation();
+		$("#sresultval").html(res);
+	});
+
+});
+
+
+</script>
+</body>
+</html>
